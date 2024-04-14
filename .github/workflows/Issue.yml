@@ -8,13 +8,7 @@ jobs:
   add-to-project:
     runs-on: ubuntu-latest
     steps:
-    - name: Add issue to project
-      uses: actions/github-script@v6
-      with:
-        script: |
-          github.rest.projects.createCard({
-            column_id: 1
-            content_id: context.payload.issue.id,
-            content_type: 'Issue'
-          })
-        github-token: ${{ secrets.ACTIONS_TOKEN }}
+      - uses: actions/add-to-project@v0.4.0
+        with:
+          project-url: https://github.com/orgs/CaseStudyTeamFumiyama/projects/1
+          github-token: ${{ secrets.ACTIONS_TOKEN }}

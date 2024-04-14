@@ -15,6 +15,6 @@ jobs:
           github.rest.projects.createCard({
             column_id: 1
             content_id: context.payload.issue.id,
-            content_type: 'Issue',
+            content_type: 'Issue'
           })
         github-token: ${{ secrets.ACTIONS_TOKEN }}

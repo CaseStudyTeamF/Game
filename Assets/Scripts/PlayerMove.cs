@@ -142,8 +142,8 @@ public class PlayerMove : MonoBehaviour
         if (totalImpulse > 40)
         {
             Debug.Log("Stop");
-            HitStop = 0.02f;
-            Time.timeScale = 0;
+            //HitStop = 0.02f;
+            //Time.timeScale = 0;
         }
     }
 

@@ -49,5 +49,5 @@ jobs:
       - name: UploadWindowsBuild
         uses: actions/upload-artifact@v3
         with:
-          name: Build-${{ steps.vars.outputs.sha_short }}
+          name: UnityProjectTeamFumiyama
           path: build

@@ -1,7 +1,9 @@
-name: Issue to Project
+name: AddProject
 
 on:
   issues:
+    types: [opened]
+  pull_request:
     types: [opened]
 
 jobs:

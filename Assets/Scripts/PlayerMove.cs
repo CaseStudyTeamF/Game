@@ -94,6 +94,19 @@ public class PlayerMove : MonoBehaviour
                         power.y *= powerCorrect;
                     }
 
+                    // ‰º•ûŒü‚É‚Í”ò‚Î‚È‚¢‚æ‚¤‚É‚·‚é
+                    float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
+                    if (angle < 0 && angle > -90)
+                    {
+                        power.x = power.magnitude;
+                        power.y = 0;
+                    }
+                    if(angle <= -90)
+                    {
+                        power.x = -power.magnitude;
+                        power.y = 0;
+                    }
+
                     arrow.drawUpdate(power);
                     
                     // —Í‚ªŽã‚·‚¬‚é‚È‚ç–îˆó‚ðÁ‚·i”ò‚Î‚¹‚È‚¢‚Ì‚Åj 
@@ -136,7 +149,7 @@ public class PlayerMove : MonoBehaviour
         {
             totalImpulse += contact.normalImpulse;
         }
-        Debug.Log(totalImpulse);
+        //Debug.Log(totalImpulse);
 
         if (totalImpulse > 40)
         {

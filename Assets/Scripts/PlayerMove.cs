@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] int Life = 3;
+    static int Life = 4;
 
     float targetSpeed;
 
     int coolDown = 0;
     float HitStop = 0;
     bool jumpInput = false;
+    
+    static bool HighSpeed = false;
+    static int invisTime = 0;
 
     // à¯Ç¡í£ÇËèàóùóp
     [SerializeField] float MinPower = 100;
@@ -21,6 +24,7 @@ public class PlayerMove : MonoBehaviour
 
 
     Rigidbody2D rigidBody2d;
+    SpriteRenderer sr;
 
     [SerializeField] GameObject mainCamera;
     CameraMove camMove;
@@ -30,7 +34,9 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Life = 4;
         rigidBody2d = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         camMove = mainCamera.GetComponent<CameraMove>();
         arrow = powerArrow.GetComponent<PowerArrowBehaviour>();
     }
@@ -61,6 +67,28 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(Life <= 0)
+        {
+            Life = 4;
+            transform.position = new Vector3(-14, -7, 0);
+            rigidBody2d.velocity = Vector3.zero;
+        }
+
+        Debug.Log(HighSpeed);
+        Invincible();
+        if (HighSpeed)
+        {
+            Color color = sr.color;
+            color.r = Mathf.Max(50 - rigidBody2d.velocity.magnitude, 0) / 50;
+            sr.color = color;
+
+            if (rigidBody2d.velocity.magnitude < 10)
+            {
+                HighSpeed = false;
+            }
+        }
+
+
         UpdateStatus();
         HorizontalMove();
         Jump();
@@ -130,6 +158,8 @@ public class PlayerMove : MonoBehaviour
                     Life--;
                     rigidBody2d.AddForce(power * 0.1f * rigidBody2d.mass, ForceMode2D.Impulse);
                     coolDown = 60;
+                    HighSpeed = true;
+                    SoundPlayer.playSound(SE.Shot);
                 }
                 clickStartPos = Vector3.zero;
                 powerArrow.SetActive(false);
@@ -153,7 +183,7 @@ public class PlayerMove : MonoBehaviour
 
         if (totalImpulse > 40)
         {
-            Debug.Log("Stop");
+            //Debug.Log("Stop");
             //HitStop = 0.02f;
             //Time.timeScale = 0;
         }
@@ -175,11 +205,11 @@ public class PlayerMove : MonoBehaviour
                 break;
             case 2:
                 rigidBody2d.mass = 2;
-                rigidBody2d.drag = 1;
+                rigidBody2d.drag = 0.5f;
                 break;
             case 1:
                 rigidBody2d.mass = 1;
-                rigidBody2d.drag = 2;
+                rigidBody2d.drag = 1;
                 break;
 
         }
@@ -225,6 +255,31 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    void Invincible()
+    {
+        if(invisTime > 0)
+        {
+            Color color = Color.white;
+            color.a = 0.5f;
+            sr.color = color;
+            invisTime--;
+        } else
+        {
+            sr.color = Color.white;
+        }
+    }
 
+    public static bool TakeDamage()
+    {
+        if (HighSpeed)
+            return false;
+
+        if(invisTime <= 0)
+        {
+            Life--;
+            invisTime = 60;
+        }
+        return true;
+    }
 
 }

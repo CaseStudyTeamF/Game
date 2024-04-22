@@ -99,6 +99,4 @@ public class EnemyMove : MonoBehaviour
         //Debug.Log(direction);
     }
 
-
-    
 }

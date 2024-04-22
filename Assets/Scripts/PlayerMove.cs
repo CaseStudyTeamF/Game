@@ -209,7 +209,7 @@ public class PlayerMove : MonoBehaviour
                 break;
             case 1:
                 rigidBody2d.mass = 1;
-                rigidBody2d.drag = 1;
+                rigidBody2d.drag = 0.75f;
                 break;
 
         }

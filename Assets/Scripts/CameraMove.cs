@@ -27,23 +27,27 @@ public class CameraMove : MonoBehaviour
 
         Vector3 newRotation = transform.eulerAngles;
 
-        newRotation.x = Mathf.Clamp(-newRotation.x, -0.1f, 0.1f);
-        newRotation.y = Mathf.Clamp(-newRotation.y, -0.1f, 0.1f);
-        newRotation.z = Mathf.Clamp(-newRotation.z, -0.1f, 0.1f);
+        float moveMax = -0.05f;
+
+        newRotation.x = Mathf.Clamp(-newRotation.x, -moveMax, moveMax);
+        newRotation.y = Mathf.Clamp(-newRotation.y, -moveMax, moveMax);
+        newRotation.z = Mathf.Clamp(-newRotation.z, -moveMax, moveMax);
 
         transform.eulerAngles = newRotation;
     }
 
     void FollowPlayer()
     {
+        float moveMax = 0.5f;
+
         // X‹——£
         float delta_X = playerObj.transform.position.x - transform.position.x;
-        float moveDistanceX = Mathf.Clamp(delta_X, -1.0f, 1.0f);
+        float moveDistanceX = Mathf.Clamp(delta_X, -moveMax, moveMax);
         float newPosX = Mathf.Clamp(moveDistanceX + transform.position.x, LeftBorder, RightBorder);
 
         // Y‹——£
         float delta_Y = playerObj.transform.position.y - transform.position.y;
-        float moveDistanceY = Mathf.Clamp(delta_Y, -1.0f, 1.0f);
+        float moveDistanceY = Mathf.Clamp(delta_Y, -moveMax, moveMax);
         float newPosY = Mathf.Clamp(moveDistanceY + transform.position.y, BottomBorder, TopBorder);
 
 

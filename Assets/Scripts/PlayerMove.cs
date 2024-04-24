@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    static int Life = 4;
+    public static int Life = 4;
 
     float targetSpeed;
 
@@ -47,11 +47,11 @@ public class PlayerMove : MonoBehaviour
         targetSpeed = 0;
         if (Input.GetKey(KeyCode.A))
         {
-            targetSpeed = -5;
+            targetSpeed = -6f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            targetSpeed = 5;
+            targetSpeed = 6f;
         }
         
         if(HitStop > 0)
@@ -74,7 +74,7 @@ public class PlayerMove : MonoBehaviour
             rigidBody2d.velocity = Vector3.zero;
         }
 
-        Debug.Log(HighSpeed);
+        //Debug.Log(HighSpeed);
         Invincible();
         if (HighSpeed)
         {
@@ -156,7 +156,7 @@ public class PlayerMove : MonoBehaviour
                 if (power.magnitude >= MinPower && coolDown <= 0)
                 {
                     Life--;
-                    rigidBody2d.AddForce(power * 0.1f * rigidBody2d.mass, ForceMode2D.Impulse);
+                    rigidBody2d.AddForce(power * 0.15f * rigidBody2d.mass, ForceMode2D.Impulse);
                     coolDown = 60;
                     HighSpeed = true;
                     SoundPlayer.playSound(SE.Shot);
@@ -166,6 +166,7 @@ public class PlayerMove : MonoBehaviour
 
             }
         }
+
     }
 
 
@@ -201,7 +202,7 @@ public class PlayerMove : MonoBehaviour
                 break;
             case 3:
                 rigidBody2d.mass = 3;
-                rigidBody2d.drag = 0;
+                rigidBody2d.drag = 0.25f;
                 break;
             case 2:
                 rigidBody2d.mass = 2;
@@ -209,11 +210,11 @@ public class PlayerMove : MonoBehaviour
                 break;
             case 1:
                 rigidBody2d.mass = 1;
-                rigidBody2d.drag = 0.75f;
+                rigidBody2d.drag = 1.0f;
                 break;
 
         }
-        transform.localScale = new Vector3(0.1f * Life + 0.2f, 0.1f * Life + 0.2f);
+        transform.localScale = new Vector3(0.1f * Life + 0.15f, 0.1f * Life + 0.15f);
     }
 
     // ¶‰EˆÚ“®‚Ìˆ—

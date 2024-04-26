@@ -245,7 +245,7 @@ public class PlayerMove : MonoBehaviour
                 //Debug.Log(raycastHit2D.distance);
                 if (raycastHit2D.distance < transform.localScale.y * 2.0f + 0.1f)
                 {
-                    rigidBody2d.AddForce(new Vector3(0, 16), ForceMode2D.Impulse);
+                    rigidBody2d.AddForce(new Vector3(0, 6) * rigidBody2d.mass, ForceMode2D.Impulse);
                 }
             }
             jumpInput = true;

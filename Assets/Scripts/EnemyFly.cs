@@ -10,7 +10,8 @@ public class EnemyFly : MonoBehaviour
     [SerializeField] private float moveLength = 1;
     [SerializeField] private float enemyMoveSpeed = 10;
     [SerializeField, Header("s")] private float interval = 10000.0f; 
-    [SerializeField] private bool isTrigger = false; 
+    [SerializeField] private bool isTrigger = false;
+    [SerializeField] private float fallStartPos = -2.0f; 
     [SerializeField] private GameObject fallObject; 
 
 
@@ -41,16 +42,11 @@ public class EnemyFly : MonoBehaviour
                 this.fallObject,
                 new Vector3(
                     this.transform.position.x,
-                    this.transform.position.y - 1.0f,
+                    this.transform.position.y + this.fallStartPos,
                     this.transform.position.z
                     ),
                 Quaternion.identity
             );
-
-            // 生成したオブジェクトに落下スクリプトを追加
-            newObject.AddComponent<Rigidbody2D>();
-            newObject.AddComponent<Collider2D>();
-            newObject.AddComponent<FallingObject>();
 
             // 生成間隔タイマーをリセット
             timeSinceLastSpawn = 0.0f;
@@ -68,39 +64,3 @@ public class EnemyFly : MonoBehaviour
     }
 }
 
-
-// 別スクリプトに分けるべき
-// 面倒なので一つにまとめる
-public class FallingObject : MonoBehaviour
-{
-    private Rigidbody2D rigidBody2d;
-    private Collider2D collider2d;
-
-    void Start()
-    {
-        this.rigidBody2d = this.GetComponent<Rigidbody2D>();
-        this.collider2d = this.GetComponent<Collider2D>();
-    }
-
-    void Update()
-    {
-        
-
-        if(this.transform.position.y < -100){
-            Destroy(this.gameObject);            
-        }
-
-    }
-
-    // 衝突判定   
-    private void OnCollisionEnter2D(Collision2D collision)
-    {  
-        Destroy(this.gameObject);
-    }
-
-    private void OnTrigerEnter2D(Collision2D collision)
-    {  
-        Destroy(this.gameObject);
-    }
-
-}

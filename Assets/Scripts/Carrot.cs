@@ -21,7 +21,7 @@ public class Carrot : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            if (PlayerMove.Life < 4)
+            if (PlayerMove.Life < 3)
             {
                 PlayerMove.Life++;
                 Destroy(gameObject);

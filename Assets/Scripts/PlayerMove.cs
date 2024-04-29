@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
     int coolDown = 0;
     float HitStop = 0;
     bool jumpInput = false;
+    float jumpPower = 0;
     
     static bool HighSpeed = false;
     static int invisTime = 0;
@@ -34,7 +35,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Life = 4;
+        Life = 3;
         rigidBody2d = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         camMove = mainCamera.GetComponent<CameraMove>();
@@ -69,7 +70,7 @@ public class PlayerMove : MonoBehaviour
     {
         if(Life <= 0)
         {
-            Life = 4;
+            Life = 3;
             transform.position = new Vector3(-14, -7, 0);
             rigidBody2d.velocity = Vector3.zero;
         }
@@ -195,26 +196,22 @@ public class PlayerMove : MonoBehaviour
     {
         switch(Life)
         {
-            // Ž¿—Ê4‚Å”ò‚ÔŽ–‚Í–³‚¢
-            case 4:
-                rigidBody2d.mass = 5;
-                rigidBody2d.drag = 0;
-                break;
             case 3:
-                rigidBody2d.mass = 3;
-                rigidBody2d.drag = 0.25f;
+                rigidBody2d.mass = 2;
+                rigidBody2d.drag = 0;
+                jumpPower = 7;
                 break;
             case 2:
-                rigidBody2d.mass = 2;
-                rigidBody2d.drag = 0.5f;
+                rigidBody2d.mass = 1;
+                jumpPower = 10;
                 break;
             case 1:
-                rigidBody2d.mass = 1;
-                rigidBody2d.drag = 1.0f;
+                rigidBody2d.mass = 0.5f;
+                jumpPower = 12;
                 break;
 
         }
-        transform.localScale = new Vector3(0.1f * Life + 0.15f, 0.1f * Life + 0.15f);
+        transform.localScale = new Vector3(Life * 0.25f, Life * 0.25f);
     }
 
     // ¶‰EˆÚ“®‚Ìˆ—
@@ -245,7 +242,7 @@ public class PlayerMove : MonoBehaviour
                 //Debug.Log(raycastHit2D.distance);
                 if (raycastHit2D.distance < transform.localScale.y * 2.0f + 0.1f)
                 {
-                    rigidBody2d.AddForce(new Vector3(0, 16), ForceMode2D.Impulse);
+                    rigidBody2d.AddForce(new Vector3(0, jumpPower) * rigidBody2d.mass, ForceMode2D.Impulse);
                 }
             }
             jumpInput = true;
@@ -272,7 +269,7 @@ public class PlayerMove : MonoBehaviour
 
     public static bool TakeDamage()
     {
-        if (HighSpeed)
+        if (HighSpeed || Life >= 3)
             return false;
 
         if(invisTime <= 0)

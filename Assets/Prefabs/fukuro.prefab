@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5466229695366155113}
   m_Layer: 0
   m_Name: fukuro
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,4 +166,4 @@ MonoBehaviour:
   interval: 3
   isTrigger: 0
   fallStartPos: -2
-  fallObject: {fileID: 362017238898311560, guid: f5ebd27cf5b6c664bb9e7c225dcb57cd, type: 3}
+  fallObject: {fileID: 362017238898311560, guid: 4595cb4ce20a79b4baae17fd5c2a9af7, type: 3}

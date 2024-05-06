@@ -64,5 +64,26 @@ public class EnemyFly : MonoBehaviour
 
         this.transform.position = new Vector3(this.startX + (float)Math.Sin(Time.time * this.enemyMoveSpeed) * this.moveLength, this.transform.position.y, this.transform.position.z);
     }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            ContactPoint2D[] contacts = new ContactPoint2D[collision.contactCount];
+            collision.GetContacts(contacts);
+            float totalImpulse = 0;
+            foreach (ContactPoint2D contact in contacts)
+            {
+                totalImpulse += contact.normalImpulse;
+            }
+
+            if (!PlayerMove.TakeDamage())
+            {
+                SoundPlayer.playSound(SE.Hit);
+                Destroy(gameObject);
+            }
+        }
+    }
 }
 

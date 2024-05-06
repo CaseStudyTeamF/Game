@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -183,11 +184,12 @@ public class PlayerMove : MonoBehaviour
         }
         //Debug.Log(totalImpulse);
 
-        if (totalImpulse > 40)
+        if(collision.gameObject.CompareTag("Door"))
         {
-            //Debug.Log("Stop");
-            //HitStop = 0.02f;
-            //Time.timeScale = 0;
+            if (HighSpeed)
+            {
+                SceneManager.LoadScene("Result");
+            }
         }
     }
 

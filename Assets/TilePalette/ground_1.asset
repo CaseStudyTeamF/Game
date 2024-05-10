@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: '[A]Grass1-Dirt2_pipo_5'
+  m_Name: ground_1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1527442960, guid: 127d2ebcd6f52f34c9c001203003c7f3, type: 3}
+  m_Sprite: {fileID: -2032887340, guid: 84f1f5bea3036714d9b2ff3791245d51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

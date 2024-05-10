@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] Sprite Powerful;
+    [SerializeField] Sprite Normal;
+    [SerializeField] Sprite Baby;
+
     public static int Life = 4;
 
     float targetSpeed;
@@ -200,20 +204,22 @@ public class PlayerMove : MonoBehaviour
         {
             case 3:
                 rigidBody2d.mass = 2;
-                rigidBody2d.drag = 0;
+                sr.sprite = Powerful;
                 jumpPower = 7;
                 break;
             case 2:
                 rigidBody2d.mass = 1;
+                sr.sprite = Normal;
                 jumpPower = 10;
                 break;
             case 1:
                 rigidBody2d.mass = 0.5f;
+                sr.sprite = Baby;
                 jumpPower = 12;
                 break;
 
         }
-        transform.localScale = new Vector3(Life * 0.25f, Life * 0.25f);
+        transform.localScale = new Vector3(Life * 0.125f, Life * 0.125f);
     }
 
     // ç∂âEà⁄ìÆÇÃèàóù
@@ -242,7 +248,7 @@ public class PlayerMove : MonoBehaviour
             {
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
                 //Debug.Log(raycastHit2D.distance);
-                if (raycastHit2D.distance < transform.localScale.y * 2.0f + 0.1f)
+                if (raycastHit2D.distance < transform.localScale.y * 4.0f + 0.5f)
                 {
                     rigidBody2d.AddForce(new Vector3(0, jumpPower) * rigidBody2d.mass, ForceMode2D.Impulse);
                 }

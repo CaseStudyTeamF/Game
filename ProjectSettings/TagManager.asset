@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Door
   - Carrot
+  - SpaceShooter
   layers:
   - Default
   - TransparentFX

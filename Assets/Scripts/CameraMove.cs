@@ -38,7 +38,7 @@ public class CameraMove : MonoBehaviour
 
     void FollowPlayer()
     {
-        float moveMax = 0.5f;
+        float moveMax = 2.5f;
 
         // X‹——£
         float delta_X = playerObj.transform.position.x - transform.position.x;

@@ -91,6 +91,7 @@ public class PlayerMove : MonoBehaviour
             if (rigidBody2d.velocity.magnitude < 10)
             {
                 HighSpeed = false;
+                rigidBody2d.gravityScale = 1;
             }
         }
 
@@ -105,7 +106,7 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         // 圧縮（解放）の処理
-        if (collision.CompareTag("PressMachine"))
+        if (collision.CompareTag("PressMachine") || collision.CompareTag("SpaceShooter"))
         {
             // クリック中の処理
             if (Input.GetMouseButton(0))
@@ -166,6 +167,9 @@ public class PlayerMove : MonoBehaviour
                     coolDown = 60;
                     HighSpeed = true;
                     SoundPlayer.playSound(SE.Shot);
+
+                    if (collision.CompareTag("SpaceShooter"))
+                        rigidBody2d.gravityScale = 0;
                 }
                 clickStartPos = Vector3.zero;
                 powerArrow.SetActive(false);

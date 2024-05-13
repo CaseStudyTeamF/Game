@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
-    static int Life = 4;
+    [SerializeField] Sprite Powerful;
+    [SerializeField] Sprite Normal;
+    [SerializeField] Sprite Baby;
+
+    public static int Life = 3;
 
     float targetSpeed;
 
     int coolDown = 0;
     float HitStop = 0;
     bool jumpInput = false;
+    float jumpPower = 0;
     
     static bool HighSpeed = false;
     static int invisTime = 0;
@@ -34,7 +40,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Life = 4;
+        Life = 3;
         rigidBody2d = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         camMove = mainCamera.GetComponent<CameraMove>();
@@ -47,11 +53,11 @@ public class PlayerMove : MonoBehaviour
         targetSpeed = 0;
         if (Input.GetKey(KeyCode.A))
         {
-            targetSpeed = -5;
+            targetSpeed = -6f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            targetSpeed = 5;
+            targetSpeed = 6f;
         }
         
         if(HitStop > 0)
@@ -69,12 +75,12 @@ public class PlayerMove : MonoBehaviour
     {
         if(Life <= 0)
         {
-            Life = 4;
+            Life = 3;
             transform.position = new Vector3(-14, -7, 0);
             rigidBody2d.velocity = Vector3.zero;
         }
 
-        Debug.Log(HighSpeed);
+        //Debug.Log(HighSpeed);
         Invincible();
         if (HighSpeed)
         {
@@ -156,7 +162,7 @@ public class PlayerMove : MonoBehaviour
                 if (power.magnitude >= MinPower && coolDown <= 0)
                 {
                     Life--;
-                    rigidBody2d.AddForce(power * 0.1f * rigidBody2d.mass, ForceMode2D.Impulse);
+                    rigidBody2d.AddForce(power * 0.15f * rigidBody2d.mass, ForceMode2D.Impulse);
                     coolDown = 60;
                     HighSpeed = true;
                     SoundPlayer.playSound(SE.Shot);
@@ -166,6 +172,7 @@ public class PlayerMove : MonoBehaviour
 
             }
         }
+
     }
 
 
@@ -181,11 +188,12 @@ public class PlayerMove : MonoBehaviour
         }
         //Debug.Log(totalImpulse);
 
-        if (totalImpulse > 40)
+        if(collision.gameObject.CompareTag("Door"))
         {
-            //Debug.Log("Stop");
-            //HitStop = 0.02f;
-            //Time.timeScale = 0;
+            if (HighSpeed)
+            {
+                SceneManager.LoadScene("Result");
+            }
         }
     }
 
@@ -194,26 +202,24 @@ public class PlayerMove : MonoBehaviour
     {
         switch(Life)
         {
-            // éøó 4Ç≈îÚÇ‘éñÇÕñ≥Ç¢
-            case 4:
-                rigidBody2d.mass = 5;
-                rigidBody2d.drag = 0;
-                break;
             case 3:
-                rigidBody2d.mass = 3;
-                rigidBody2d.drag = 0;
+                rigidBody2d.mass = 2;
+                sr.sprite = Powerful;
+                jumpPower = 7;
                 break;
             case 2:
-                rigidBody2d.mass = 2;
-                rigidBody2d.drag = 0.5f;
+                rigidBody2d.mass = 1;
+                sr.sprite = Normal;
+                jumpPower = 10;
                 break;
             case 1:
-                rigidBody2d.mass = 1;
-                rigidBody2d.drag = 1;
+                rigidBody2d.mass = 0.5f;
+                sr.sprite = Baby;
+                jumpPower = 12;
                 break;
 
         }
-        transform.localScale = new Vector3(0.1f * Life + 0.2f, 0.1f * Life + 0.2f);
+        transform.localScale = new Vector3(Life * 0.125f, Life * 0.125f);
     }
 
     // ç∂âEà⁄ìÆÇÃèàóù
@@ -242,9 +248,9 @@ public class PlayerMove : MonoBehaviour
             {
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
                 //Debug.Log(raycastHit2D.distance);
-                if (raycastHit2D.distance < transform.localScale.y * 2.0f + 0.1f)
+                if (raycastHit2D.distance < transform.localScale.y * 4.0f + 0.5f)
                 {
-                    rigidBody2d.AddForce(new Vector3(0, 16), ForceMode2D.Impulse);
+                    rigidBody2d.AddForce(new Vector3(0, jumpPower) * rigidBody2d.mass, ForceMode2D.Impulse);
                 }
             }
             jumpInput = true;
@@ -271,7 +277,7 @@ public class PlayerMove : MonoBehaviour
 
     public static bool TakeDamage()
     {
-        if (HighSpeed)
+        if (HighSpeed || Life >= 3)
             return false;
 
         if(invisTime <= 0)

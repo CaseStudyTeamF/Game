@@ -21,7 +21,7 @@ public class PowerArrowBehaviour : MonoBehaviour
     public void drawUpdate(Vector2 vector)
     {
         // 矢印のサイズ変更
-        float size = vector.magnitude / 500;
+        float size = vector.magnitude / 150;
         Vector2 scale = new Vector2(size, size);
 
         transform.localScale = scale;

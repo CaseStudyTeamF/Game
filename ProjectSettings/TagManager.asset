@@ -7,6 +7,7 @@ TagManager:
   - PressMachine
   - Enemy
   - Door
+  - Carrot
   layers:
   - Default
   - TransparentFX
@@ -41,9 +42,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: backGround
+    uniqueID: 3197177311
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Machine
     uniqueID: 60551635
+    locked: 0
+  - name: UI
+    uniqueID: 258469045
     locked: 0

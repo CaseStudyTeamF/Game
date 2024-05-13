@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveLength: 1
-  enemyMoveSpeed: 10
+  enemyMoveSpeed: 5
   interval: 3
   isTrigger: 0
   fallStartPos: -2

@@ -9,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Sprite Normal;
     [SerializeField] Sprite Baby;
 
-    public static int Life = 4;
+    public static int Life = 3;
 
     float targetSpeed;
 

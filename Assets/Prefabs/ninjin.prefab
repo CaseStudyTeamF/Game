@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8759590861260769878}
   - component: {fileID: 4640036893484709337}
   - component: {fileID: 521398006677990514}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ninjin
   m_TagString: Carrot
   m_Icon: {fileID: 0}

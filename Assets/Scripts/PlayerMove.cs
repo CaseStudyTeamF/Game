@@ -36,7 +36,7 @@ public class PlayerMove : MonoBehaviour
 
     bool rightClick = false;
 
-    // �������菈���p
+    // 引っ張り処理用
     [SerializeField] float MinPower = 100;
     [SerializeField] float MaxPower = 200;
 
@@ -52,11 +52,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject powerArrow;
     PowerArrowBehaviour arrow;
 
-    [Header("�����蔻��")]
+    [Header("当たり判定")]
     [SerializeField] CapsuleCollider2D X_Collider;
     [SerializeField] CapsuleCollider2D Y_Collider;
 
-    [Header("�}�e���A��")]
+    [Header("マテリアル")]
     [SerializeField] PhysicsMaterial2D friction;
     [SerializeField] PhysicsMaterial2D bound;
     [SerializeField] PhysicsMaterial2D slip;
@@ -123,12 +123,12 @@ public class PlayerMove : MonoBehaviour
             {
                 HighSpeed = false;
 
-                // ���d�͉���
+                // 反重力解除
                 rigidBody2d.gravityScale = 1;
-                // �e������
+                // 弾性解除
                 X_Collider.sharedMaterial = slip;
                 Y_Collider.sharedMaterial = friction;
-                // �������
+                // 滑り解除
                 Y_Collider.sharedMaterial = friction;
             }
         }
@@ -143,23 +143,23 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // ���k�i����j�̏���
+        // 圧縮（解放）の処理
         if (collision.CompareTag("PressMachine"))
         {
-            // �N���b�N���̏���
+            // クリック中の処理
             if (Input.GetMouseButton(0))
             {
-                // �N���b�N���̏���
+                // クリック時の処理
                 if(clickStartPos == Vector3.zero)
                 {
                     clickStartPos = Input.mousePosition;
                 }
                 else
                 {
-                    // ���������̏���
+                    // 長押し中の処理
                     power = clickStartPos - Input.mousePosition;
 
-                    // �͂̏��
+                    // 力の上限
                     if(power.magnitude > MaxPower)
                     {
                         float powerCorrect = MaxPower / power.magnitude;
@@ -167,7 +167,7 @@ public class PlayerMove : MonoBehaviour
                         power.y *= powerCorrect;
                     }
 
-                    // �������ɂ͔�΂Ȃ��悤�ɂ���
+                    // 下方向には飛ばないようにする
                     float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
                     if (angle < 0 && angle > -90)
                     {
@@ -183,7 +183,7 @@ public class PlayerMove : MonoBehaviour
                     Vector2 arrowSize = power / transform.localScale / 2.0f;
                     arrow.drawUpdate(arrowSize);
                     
-                    // �͂��シ����Ȃ���������i��΂��Ȃ��̂Łj 
+                    // 力が弱すぎるなら矢印を消す（飛ばせないので）
                     if(power.magnitude < MinPower)
                     {
                         powerArrow.SetActive(false);
@@ -222,7 +222,7 @@ public class PlayerMove : MonoBehaviour
             }
 
 
-            // �����[�X����
+            // リリース処理
             if (!Input.GetMouseButton(0) && clickStartPos != Vector3.zero)
             {
                 if (power.magnitude >= MinPower && coolDown <= 0)
@@ -266,7 +266,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    // �Փˎ��̉��o
+    // 衝突時の演出
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D[] contacts = new ContactPoint2D[collision.contactCount];
@@ -312,7 +312,7 @@ public class PlayerMove : MonoBehaviour
         transform.localScale = new Vector3(Life * 0.125f, Life * 0.125f);
     }
 
-    // ���E�ړ��̏���
+    // 左右移動の処理
     void HorizontalMove()
     {
         float velocity = 0;
@@ -329,7 +329,7 @@ public class PlayerMove : MonoBehaviour
         rigidBody2d.AddForce(moveForce * rigidBody2d.mass);
     }
 
-    // �W�����v�̏���
+    // ジャンプの処理
     void Jump()
     {
         if(Input.GetKey(KeyCode.Space))
@@ -338,7 +338,7 @@ public class PlayerMove : MonoBehaviour
             {
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
 
-                // ���C��������Ȃ��i�n�ʂ���������j���̏���
+                // レイが当たらない（地面が遠すぎる）時の処理
                 if (raycastHit2D == false)
                     return;
 
@@ -355,7 +355,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    // ��e���̖��G����
+    // 被弾時の無敵処理
     void Invincible()
     {
         if(invisTime > 0)
@@ -371,7 +371,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    // ��e���̏���
+    // 被弾時の処理
     public static bool TakeDamage()
     {
         if (HighSpeed || Life >= 3)

@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public enum ShootType
+{
+    Normal,
+    Anti_Gravity,
+    SuperBall,
+    Slip
+}
 
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] Sprite Powerful;
     [SerializeField] Sprite Normal;
     [SerializeField] Sprite Baby;
+
+    public static ShootType shootType = ShootType.Normal;
 
     public static int Life = 3;
 
@@ -20,6 +31,8 @@ public class PlayerMove : MonoBehaviour
     
     static bool HighSpeed = false;
     static int invisTime = 0;
+
+    bool rightClick = false;
 
     // 引っ張り処理用
     [SerializeField] float MinPower = 100;
@@ -36,6 +49,16 @@ public class PlayerMove : MonoBehaviour
     CameraMove camMove;
     [SerializeField] GameObject powerArrow;
     PowerArrowBehaviour arrow;
+
+    [Header("当たり判定")]
+    [SerializeField] CapsuleCollider2D X_Collider;
+    [SerializeField] CapsuleCollider2D Y_Collider;
+
+    [Header("マテリアル")]
+    [SerializeField] PhysicsMaterial2D friction;
+    [SerializeField] PhysicsMaterial2D bound;
+    [SerializeField] PhysicsMaterial2D slip;
+
 
     // Start is called before the first frame update
     void Start()
@@ -91,7 +114,14 @@ public class PlayerMove : MonoBehaviour
             if (rigidBody2d.velocity.magnitude < 10)
             {
                 HighSpeed = false;
+
+                // 反重力解除
                 rigidBody2d.gravityScale = 1;
+                // 弾性解除
+                X_Collider.sharedMaterial = slip;
+                Y_Collider.sharedMaterial = friction;
+                // 滑り解除
+                Y_Collider.sharedMaterial = friction;
             }
         }
 
@@ -106,7 +136,7 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         // 圧縮（解放）の処理
-        if (collision.CompareTag("PressMachine") || collision.CompareTag("SpaceShooter"))
+        if (collision.CompareTag("PressMachine"))
         {
             // クリック中の処理
             if (Input.GetMouseButton(0))
@@ -142,7 +172,8 @@ public class PlayerMove : MonoBehaviour
                         power.y = 0;
                     }
 
-                    arrow.drawUpdate(power);
+                    Vector2 arrowSize = power / transform.localScale / 2.0f;
+                    arrow.drawUpdate(arrowSize);
                     
                     // 力が弱すぎるなら矢印を消す（飛ばせないので） 
                     if(power.magnitude < MinPower)
@@ -154,6 +185,32 @@ public class PlayerMove : MonoBehaviour
                     }
                 }
                 
+            }
+
+            if(Input.GetMouseButton(1))
+            {
+                if(!rightClick)
+                {
+                    switch (shootType)
+                    {
+                        case ShootType.Normal:
+                            shootType = ShootType.Anti_Gravity;
+                            break;
+                        case ShootType.Anti_Gravity:
+                            shootType = ShootType.SuperBall;
+                            break;
+                        case ShootType.SuperBall:
+                            shootType = ShootType.Slip;
+                            break;
+                        case ShootType.Slip:
+                            shootType = ShootType.Normal;
+                            break;
+                    }
+                }
+                rightClick = true;
+            } else
+            {
+                rightClick = false;
             }
 
 
@@ -168,8 +225,21 @@ public class PlayerMove : MonoBehaviour
                     HighSpeed = true;
                     SoundPlayer.playSound(SE.Shot);
 
-                    if (collision.CompareTag("SpaceShooter"))
-                        rigidBody2d.gravityScale = 0;
+                    switch(shootType)
+                    {
+                        case ShootType.Normal:
+                            break;
+                        case ShootType.Anti_Gravity:
+                            rigidBody2d.gravityScale = -1;
+                            break;
+                        case ShootType.SuperBall:
+                            X_Collider.sharedMaterial = bound;
+                            Y_Collider.sharedMaterial = bound;
+                            break;
+                        case ShootType.Slip:
+                            Y_Collider.sharedMaterial = slip;
+                            break;
+                    }
                 }
                 clickStartPos = Vector3.zero;
                 powerArrow.SetActive(false);
@@ -179,6 +249,14 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PressMachine"))
+        {
+            powerArrow.SetActive(false);
+            clickStartPos = Vector3.zero;
+        }
+    }
 
     // 衝突時の演出
     private void OnCollisionEnter2D(Collision2D collision)
@@ -251,7 +329,11 @@ public class PlayerMove : MonoBehaviour
             if (jumpInput == false)
             {
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
-                //Debug.Log(raycastHit2D.distance);
+
+                // レイが当たらない（地面が遠すぎる）時の処理
+                if (raycastHit2D == false)
+                    return;
+
                 if (raycastHit2D.distance < transform.localScale.y * 4.0f + 0.5f)
                 {
                     rigidBody2d.AddForce(new Vector3(0, jumpPower) * rigidBody2d.mass, ForceMode2D.Impulse);
@@ -265,6 +347,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
+    // 被弾時の無敵処理
     void Invincible()
     {
         if(invisTime > 0)
@@ -279,6 +362,8 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
+    // 被弾時の処理
     public static bool TakeDamage()
     {
         if (HighSpeed || Life >= 3)

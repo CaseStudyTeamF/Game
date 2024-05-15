@@ -205,6 +205,11 @@ MonoBehaviour:
   MaxPower: 160
   mainCamera: {fileID: 0}
   powerArrow: {fileID: 7230998537514457202}
+  X_Collider: {fileID: 5112128460379408428}
+  Y_Collider: {fileID: 8711239181791028363}
+  friction: {fileID: 6200000, guid: 2d61ad9c9c802254eadbd546a1525617, type: 2}
+  bound: {fileID: 6200000, guid: 283b9f3896f72b34eb80bedb9da8816e, type: 2}
+  slip: {fileID: 6200000, guid: 78b4ab60a1db0cf42a2462d66bb1ef5f, type: 2}
 --- !u!1 &7230998537514457202
 GameObject:
   m_ObjectHideFlags: 0

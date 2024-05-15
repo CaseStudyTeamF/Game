@@ -17,6 +17,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Sprite Powerful;
     [SerializeField] Sprite Normal;
     [SerializeField] Sprite Baby;
+    [SerializeField] Vector3 initPos =  new Vector3(-14, -7, 0);
+    [SerializeField] float deathByFallPos =  -30;
 
     public static ShootType shootType = ShootType.Normal;
 
@@ -34,7 +36,7 @@ public class PlayerMove : MonoBehaviour
 
     bool rightClick = false;
 
-    // ˆø‚Á’£‚èˆ——p
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½èˆï¿½ï¿½ï¿½p
     [SerializeField] float MinPower = 100;
     [SerializeField] float MaxPower = 200;
 
@@ -50,11 +52,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject powerArrow;
     PowerArrowBehaviour arrow;
 
-    [Header("“–‚½‚è”»’è")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½")]
     [SerializeField] CapsuleCollider2D X_Collider;
     [SerializeField] CapsuleCollider2D Y_Collider;
 
-    [Header("ƒ}ƒeƒŠƒAƒ‹")]
+    [Header("ï¿½}ï¿½eï¿½ï¿½ï¿½Aï¿½ï¿½")]
     [SerializeField] PhysicsMaterial2D friction;
     [SerializeField] PhysicsMaterial2D bound;
     [SerializeField] PhysicsMaterial2D slip;
@@ -96,10 +98,16 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (this.transform.position.y < this.deathByFallPos){
+            this.transform.position = this.initPos;
+            this.rigidBody2d.velocity = Vector3.zero;
+            Life--;
+        }        
+
         if(Life <= 0)
         {
             Life = 3;
-            transform.position = new Vector3(-14, -7, 0);
+            transform.position = this.initPos;
             rigidBody2d.velocity = Vector3.zero;
         }
 
@@ -115,12 +123,12 @@ public class PlayerMove : MonoBehaviour
             {
                 HighSpeed = false;
 
-                // ”½d—Í‰ğœ
+                // ï¿½ï¿½ï¿½dï¿½Í‰ï¿½ï¿½ï¿½
                 rigidBody2d.gravityScale = 1;
-                // ’e«‰ğœ
+                // ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 X_Collider.sharedMaterial = slip;
                 Y_Collider.sharedMaterial = friction;
-                // ŠŠ‚è‰ğœ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 Y_Collider.sharedMaterial = friction;
             }
         }
@@ -135,23 +143,23 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // ˆ³ki‰ğ•új‚Ìˆ—
+        // ï¿½ï¿½ï¿½kï¿½iï¿½ï¿½ï¿½ï¿½jï¿½Ìï¿½ï¿½ï¿½
         if (collision.CompareTag("PressMachine"))
         {
-            // ƒNƒŠƒbƒN’†‚Ìˆ—
+            // ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
             if (Input.GetMouseButton(0))
             {
-                // ƒNƒŠƒbƒN‚Ìˆ—
+                // ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
                 if(clickStartPos == Vector3.zero)
                 {
                     clickStartPos = Input.mousePosition;
                 }
                 else
                 {
-                    // ’·‰Ÿ‚µ’†‚Ìˆ—
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
                     power = clickStartPos - Input.mousePosition;
 
-                    // —Í‚ÌãŒÀ
+                    // ï¿½Í‚Ìï¿½ï¿½
                     if(power.magnitude > MaxPower)
                     {
                         float powerCorrect = MaxPower / power.magnitude;
@@ -159,7 +167,7 @@ public class PlayerMove : MonoBehaviour
                         power.y *= powerCorrect;
                     }
 
-                    // ‰º•ûŒü‚É‚Í”ò‚Î‚È‚¢‚æ‚¤‚É‚·‚é
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚Í”ï¿½Î‚È‚ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
                     float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
                     if (angle < 0 && angle > -90)
                     {
@@ -175,7 +183,7 @@ public class PlayerMove : MonoBehaviour
                     Vector2 arrowSize = power / transform.localScale / 2.0f;
                     arrow.drawUpdate(arrowSize);
                     
-                    // —Í‚ªã‚·‚¬‚é‚È‚ç–îˆó‚ğÁ‚·i”ò‚Î‚¹‚È‚¢‚Ì‚Åj 
+                    // ï¿½Í‚ï¿½ï¿½ã‚·ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½Î‚ï¿½ï¿½È‚ï¿½ï¿½Ì‚Åj 
                     if(power.magnitude < MinPower)
                     {
                         powerArrow.SetActive(false);
@@ -214,7 +222,7 @@ public class PlayerMove : MonoBehaviour
             }
 
 
-            // ƒŠƒŠ[ƒXˆ—
+            // ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½
             if (!Input.GetMouseButton(0) && clickStartPos != Vector3.zero)
             {
                 if (power.magnitude >= MinPower && coolDown <= 0)
@@ -258,7 +266,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    // Õ“Ë‚Ì‰‰o
+    // ï¿½Õ“Ëï¿½ï¿½Ì‰ï¿½ï¿½o
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D[] contacts = new ContactPoint2D[collision.contactCount];
@@ -304,7 +312,7 @@ public class PlayerMove : MonoBehaviour
         transform.localScale = new Vector3(Life * 0.125f, Life * 0.125f);
     }
 
-    // ¶‰EˆÚ“®‚Ìˆ—
+    // ï¿½ï¿½ï¿½Eï¿½Ú“ï¿½ï¿½Ìï¿½ï¿½ï¿½
     void HorizontalMove()
     {
         float velocity = 0;
@@ -321,7 +329,7 @@ public class PlayerMove : MonoBehaviour
         rigidBody2d.AddForce(moveForce * rigidBody2d.mass);
     }
 
-    // ƒWƒƒƒ“ƒv‚Ìˆ—
+    // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Ìï¿½ï¿½ï¿½
     void Jump()
     {
         if(Input.GetKey(KeyCode.Space))
@@ -330,7 +338,7 @@ public class PlayerMove : MonoBehaviour
             {
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
 
-                // ƒŒƒC‚ª“–‚½‚ç‚È‚¢i’n–Ê‚ª‰“‚·‚¬‚éj‚Ìˆ—
+                // ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½iï¿½nï¿½Ê‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
                 if (raycastHit2D == false)
                     return;
 
@@ -347,7 +355,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    // ”í’e‚Ì–³“Gˆ—
+    // ï¿½ï¿½eï¿½ï¿½ï¿½Ì–ï¿½ï¿½Gï¿½ï¿½ï¿½ï¿½
     void Invincible()
     {
         if(invisTime > 0)
@@ -363,7 +371,7 @@ public class PlayerMove : MonoBehaviour
     }
 
 
-    // ”í’e‚Ìˆ—
+    // ï¿½ï¿½eï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
     public static bool TakeDamage()
     {
         if (HighSpeed || Life >= 3)

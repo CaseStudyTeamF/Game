@@ -9,7 +9,8 @@ public enum ShootType
     Normal,
     Anti_Gravity,
     SuperBall,
-    Slip
+    Slip,
+    Size
 }
 
 public class PlayerMove : MonoBehaviour
@@ -21,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float deathByFallPos =  -30;
 
     public static ShootType shootType = ShootType.Normal;
+    public static bool[] shooterPermission = new bool[(int)ShootType.Size];
 
     public static int Life = 3;
 
@@ -70,6 +72,12 @@ public class PlayerMove : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         camMove = mainCamera.GetComponent<CameraMove>();
         arrow = powerArrow.GetComponent<PowerArrowBehaviour>();
+
+        // パチンコの制限
+        shooterPermission[(int)ShootType.Normal] = true;
+        shooterPermission[(int)ShootType.Anti_Gravity] = false;
+        shooterPermission[(int)ShootType.SuperBall] = false;
+        shooterPermission[(int)ShootType.Slip] = false;
     }
 
     // Update is called once per frame
@@ -115,9 +123,26 @@ public class PlayerMove : MonoBehaviour
         Invincible();
         if (HighSpeed)
         {
+            // 色
             Color color = sr.color;
-            color.r = Mathf.Max(50 - rigidBody2d.velocity.magnitude, 0) / 50;
+            switch(shootType)
+            {
+                case ShootType.Normal:
+                    color = new Color32(255, 255, 0, 255);
+                    break;
+                case ShootType.Anti_Gravity:
+                    color = new Color32(64, 64, 64, 255);
+                    break;
+                case ShootType.SuperBall:
+                    color = new Color32(255, 0, 165, 255);
+                    break;
+                case ShootType.Slip:
+                    color = new Color32(0, 255, 255, 255);
+                    break;
+            }
+            //color.a = Mathf.Max(50 - rigidBody2d.velocity.magnitude, 0) / 50;
             sr.color = color;
+
 
             if (rigidBody2d.velocity.magnitude < 10)
             {

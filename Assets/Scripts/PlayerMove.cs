@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,6 +24,7 @@ public class PlayerMove : MonoBehaviour
 
     public static ShootType shootType = ShootType.Normal;
     public static bool[] shooterPermission = new bool[(int)ShootType.Size];
+    public static bool allowChangeType = true;
 
     public static int Life = 3;
 
@@ -73,11 +75,14 @@ public class PlayerMove : MonoBehaviour
         camMove = mainCamera.GetComponent<CameraMove>();
         arrow = powerArrow.GetComponent<PowerArrowBehaviour>();
 
+        this.initPos = this.transform.position;
+
         // パチンコの制限
         shooterPermission[(int)ShootType.Normal] = true;
         shooterPermission[(int)ShootType.Anti_Gravity] = false;
         shooterPermission[(int)ShootType.SuperBall] = false;
         shooterPermission[(int)ShootType.Slip] = false;
+        allowChangeType = true;
     }
 
     // Update is called once per frame
@@ -222,23 +227,28 @@ public class PlayerMove : MonoBehaviour
 
             if(Input.GetMouseButton(1))
             {
-                if(!rightClick)
+                if(!rightClick && allowChangeType)
                 {
-                    switch (shootType)
+                    do
                     {
-                        case ShootType.Normal:
-                            shootType = ShootType.Anti_Gravity;
-                            break;
-                        case ShootType.Anti_Gravity:
-                            shootType = ShootType.SuperBall;
-                            break;
-                        case ShootType.SuperBall:
-                            shootType = ShootType.Slip;
-                            break;
-                        case ShootType.Slip:
-                            shootType = ShootType.Normal;
-                            break;
-                    }
+                        // パチンコの変更
+                        switch (shootType)
+                        {
+                            case ShootType.Normal:
+                                shootType = ShootType.Anti_Gravity;
+                                break;
+                            case ShootType.Anti_Gravity:
+                                shootType = ShootType.SuperBall;
+                                break;
+                            case ShootType.SuperBall:
+                                shootType = ShootType.Slip;
+                                break;
+                            case ShootType.Slip:
+                                shootType = ShootType.Normal;
+                                break;
+                        }
+                    } 
+                    while (shooterPermission[(int)shootType] == false);
                 }
                 rightClick = true;
             } else
@@ -357,11 +367,13 @@ public class PlayerMove : MonoBehaviour
     // ジャンプの処理
     void Jump()
     {
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (jumpInput == false)
             {
-                RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
+                //RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
+                Vector2 size = new Vector2(Life, 1);
+                RaycastHit2D raycastHit2D = Physics2D.BoxCast(transform.position, size, 0, Vector2.down);
 
                 // レイが当たらない（地面が遠すぎる）時の処理
                 if (raycastHit2D == false)
@@ -373,7 +385,8 @@ public class PlayerMove : MonoBehaviour
                 }
             }
             jumpInput = true;
-        } else
+        }
+        else
         {
             jumpInput = false;
         }

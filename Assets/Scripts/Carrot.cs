@@ -28,7 +28,7 @@ public class Carrot : MonoBehaviour
             {
                 PlayerMove.Life++;
                 recovered = true;
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

@@ -20,7 +20,7 @@ public class Shooter : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        switch(PlayerMove.shootType)
+        switch (PlayerMove.shootType)
         {
             case ShootType.Normal:
                 sr.sprite = NomalShooter;
@@ -35,5 +35,6 @@ public class Shooter : MonoBehaviour
                 sr.sprite = IceShooter;
                 break;
         }
+
     }
 }

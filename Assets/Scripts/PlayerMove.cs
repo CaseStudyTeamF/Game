@@ -1,13 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public enum ShootType
+{
+    Normal,
+    Anti_Gravity,
+    SuperBall,
+    Slip,
+    Size
+}
 
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] Sprite Powerful;
     [SerializeField] Sprite Normal;
     [SerializeField] Sprite Baby;
+    [SerializeField] Vector3 initPos =  new Vector3(-14, -7, 0);
+    [SerializeField] float deathByFallPos =  -30;
+
+    public static ShootType shootType = ShootType.Normal;
+    public static bool[] shooterPermission = new bool[(int)ShootType.Size];
+    public static bool allowChangeType = true;
 
     public static int Life = 3;
 
@@ -21,7 +38,9 @@ public class PlayerMove : MonoBehaviour
     static bool HighSpeed = false;
     static int invisTime = 0;
 
-    // ˆø‚Á’£‚èˆ——p
+    bool rightClick = false;
+
+    // å¼•ã£å¼µã‚Šå‡¦ç†ç”¨
     [SerializeField] float MinPower = 100;
     [SerializeField] float MaxPower = 200;
 
@@ -37,6 +56,16 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] GameObject powerArrow;
     PowerArrowBehaviour arrow;
 
+    [Header("å½“ãŸã‚Šåˆ¤å®š")]
+    [SerializeField] CapsuleCollider2D X_Collider;
+    [SerializeField] CapsuleCollider2D Y_Collider;
+
+    [Header("ãƒãƒ†ãƒªã‚¢ãƒ«")]
+    [SerializeField] PhysicsMaterial2D friction;
+    [SerializeField] PhysicsMaterial2D bound;
+    [SerializeField] PhysicsMaterial2D slip;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +74,15 @@ public class PlayerMove : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         camMove = mainCamera.GetComponent<CameraMove>();
         arrow = powerArrow.GetComponent<PowerArrowBehaviour>();
+
+        this.initPos = this.transform.position;
+
+        // ãƒ‘ãƒãƒ³ã‚³ã®åˆ¶é™
+        shooterPermission[(int)ShootType.Normal] = true;
+        shooterPermission[(int)ShootType.Anti_Gravity] = false;
+        shooterPermission[(int)ShootType.SuperBall] = false;
+        shooterPermission[(int)ShootType.Slip] = false;
+        allowChangeType = true;
     }
 
     // Update is called once per frame
@@ -73,10 +111,16 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (this.transform.position.y < this.deathByFallPos){
+            this.transform.position = this.initPos;
+            this.rigidBody2d.velocity = Vector3.zero;
+            Life--;
+        }        
+
         if(Life <= 0)
         {
             Life = 3;
-            transform.position = new Vector3(-14, -7, 0);
+            transform.position = this.initPos;
             rigidBody2d.velocity = Vector3.zero;
         }
 
@@ -84,13 +128,38 @@ public class PlayerMove : MonoBehaviour
         Invincible();
         if (HighSpeed)
         {
+            // è‰²
             Color color = sr.color;
-            color.r = Mathf.Max(50 - rigidBody2d.velocity.magnitude, 0) / 50;
+            switch(shootType)
+            {
+                case ShootType.Normal:
+                    color = new Color32(255, 255, 0, 255);
+                    break;
+                case ShootType.Anti_Gravity:
+                    color = new Color32(64, 64, 64, 255);
+                    break;
+                case ShootType.SuperBall:
+                    color = new Color32(255, 0, 165, 255);
+                    break;
+                case ShootType.Slip:
+                    color = new Color32(0, 255, 255, 255);
+                    break;
+            }
+            //color.a = Mathf.Max(50 - rigidBody2d.velocity.magnitude, 0) / 50;
             sr.color = color;
+
 
             if (rigidBody2d.velocity.magnitude < 10)
             {
                 HighSpeed = false;
+
+                // åé‡åŠ›è§£é™¤
+                rigidBody2d.gravityScale = 1;
+                // å¼¾æ€§è§£é™¤
+                X_Collider.sharedMaterial = slip;
+                Y_Collider.sharedMaterial = friction;
+                // æ»‘ã‚Šè§£é™¤
+                Y_Collider.sharedMaterial = friction;
             }
         }
 
@@ -104,23 +173,23 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // ˆ³ki‰ğ•új‚Ìˆ—
+        // åœ§ç¸®ï¼ˆè§£æ”¾ï¼‰ã®å‡¦ç†
         if (collision.CompareTag("PressMachine"))
         {
-            // ƒNƒŠƒbƒN’†‚Ìˆ—
+            // ã‚¯ãƒªãƒƒã‚¯ä¸­ã®å‡¦ç†
             if (Input.GetMouseButton(0))
             {
-                // ƒNƒŠƒbƒN‚Ìˆ—
+                // ã‚¯ãƒªãƒƒã‚¯æ™‚ã®å‡¦ç†
                 if(clickStartPos == Vector3.zero)
                 {
                     clickStartPos = Input.mousePosition;
                 }
                 else
                 {
-                    // ’·‰Ÿ‚µ’†‚Ìˆ—
+                    // é•·æŠ¼ã—ä¸­ã®å‡¦ç†
                     power = clickStartPos - Input.mousePosition;
 
-                    // —Í‚ÌãŒÀ
+                    // åŠ›ã®ä¸Šé™
                     if(power.magnitude > MaxPower)
                     {
                         float powerCorrect = MaxPower / power.magnitude;
@@ -128,7 +197,7 @@ public class PlayerMove : MonoBehaviour
                         power.y *= powerCorrect;
                     }
 
-                    // ‰º•ûŒü‚É‚Í”ò‚Î‚È‚¢‚æ‚¤‚É‚·‚é
+                    // ä¸‹æ–¹å‘ã«ã¯é£›ã°ãªã„ã‚ˆã†ã«ã™ã‚‹
                     float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
                     if (angle < 0 && angle > -90)
                     {
@@ -141,9 +210,10 @@ public class PlayerMove : MonoBehaviour
                         power.y = 0;
                     }
 
-                    arrow.drawUpdate(power);
+                    Vector2 arrowSize = power / transform.localScale / 2.0f;
+                    arrow.drawUpdate(arrowSize);
                     
-                    // —Í‚ªã‚·‚¬‚é‚È‚ç–îˆó‚ğÁ‚·i”ò‚Î‚¹‚È‚¢‚Ì‚Åj 
+                    // åŠ›ãŒå¼±ã™ãã‚‹ãªã‚‰çŸ¢å°ã‚’æ¶ˆã™ï¼ˆé£›ã°ã›ãªã„ã®ã§ï¼‰
                     if(power.magnitude < MinPower)
                     {
                         powerArrow.SetActive(false);
@@ -155,8 +225,39 @@ public class PlayerMove : MonoBehaviour
                 
             }
 
+            if(Input.GetMouseButton(1))
+            {
+                if(!rightClick && allowChangeType)
+                {
+                    do
+                    {
+                        // ãƒ‘ãƒãƒ³ã‚³ã®å¤‰æ›´
+                        switch (shootType)
+                        {
+                            case ShootType.Normal:
+                                shootType = ShootType.Anti_Gravity;
+                                break;
+                            case ShootType.Anti_Gravity:
+                                shootType = ShootType.SuperBall;
+                                break;
+                            case ShootType.SuperBall:
+                                shootType = ShootType.Slip;
+                                break;
+                            case ShootType.Slip:
+                                shootType = ShootType.Normal;
+                                break;
+                        }
+                    } 
+                    while (shooterPermission[(int)shootType] == false);
+                }
+                rightClick = true;
+            } else
+            {
+                rightClick = false;
+            }
 
-            // ƒŠƒŠ[ƒXˆ—
+
+            // ãƒªãƒªãƒ¼ã‚¹å‡¦ç†
             if (!Input.GetMouseButton(0) && clickStartPos != Vector3.zero)
             {
                 if (power.magnitude >= MinPower && coolDown <= 0)
@@ -166,6 +267,22 @@ public class PlayerMove : MonoBehaviour
                     coolDown = 60;
                     HighSpeed = true;
                     SoundPlayer.playSound(SE.Shot);
+
+                    switch(shootType)
+                    {
+                        case ShootType.Normal:
+                            break;
+                        case ShootType.Anti_Gravity:
+                            rigidBody2d.gravityScale = -1;
+                            break;
+                        case ShootType.SuperBall:
+                            X_Collider.sharedMaterial = bound;
+                            Y_Collider.sharedMaterial = bound;
+                            break;
+                        case ShootType.Slip:
+                            Y_Collider.sharedMaterial = slip;
+                            break;
+                    }
                 }
                 clickStartPos = Vector3.zero;
                 powerArrow.SetActive(false);
@@ -175,8 +292,16 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PressMachine"))
+        {
+            powerArrow.SetActive(false);
+            clickStartPos = Vector3.zero;
+        }
+    }
 
-    // Õ“Ë‚Ì‰‰o
+    // è¡çªæ™‚ã®æ¼”å‡º
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ContactPoint2D[] contacts = new ContactPoint2D[collision.contactCount];
@@ -222,7 +347,7 @@ public class PlayerMove : MonoBehaviour
         transform.localScale = new Vector3(Life * 0.125f, Life * 0.125f);
     }
 
-    // ¶‰EˆÚ“®‚Ìˆ—
+    // å·¦å³ç§»å‹•ã®å‡¦ç†
     void HorizontalMove()
     {
         float velocity = 0;
@@ -239,28 +364,36 @@ public class PlayerMove : MonoBehaviour
         rigidBody2d.AddForce(moveForce * rigidBody2d.mass);
     }
 
-    // ƒWƒƒƒ“ƒv‚Ìˆ—
+    // ã‚¸ãƒ£ãƒ³ãƒ—ã®å‡¦ç†
     void Jump()
     {
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (jumpInput == false)
             {
-                RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
-                //Debug.Log(raycastHit2D.distance);
+                //RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, Vector2.down, 10f);
+                Vector2 size = new Vector2(Life, 1);
+                RaycastHit2D raycastHit2D = Physics2D.BoxCast(transform.position, size, 0, Vector2.down);
+
+                // ãƒ¬ã‚¤ãŒå½“ãŸã‚‰ãªã„ï¼ˆåœ°é¢ãŒé ã™ãã‚‹ï¼‰æ™‚ã®å‡¦ç†
+                if (raycastHit2D == false)
+                    return;
+
                 if (raycastHit2D.distance < transform.localScale.y * 4.0f + 0.5f)
                 {
                     rigidBody2d.AddForce(new Vector3(0, jumpPower) * rigidBody2d.mass, ForceMode2D.Impulse);
                 }
             }
             jumpInput = true;
-        } else
+        }
+        else
         {
             jumpInput = false;
         }
     }
 
 
+    // è¢«å¼¾æ™‚ã®ç„¡æ•µå‡¦ç†
     void Invincible()
     {
         if(invisTime > 0)
@@ -275,6 +408,8 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+
+    // è¢«å¼¾æ™‚ã®å‡¦ç†
     public static bool TakeDamage()
     {
         if (HighSpeed || Life >= 3)

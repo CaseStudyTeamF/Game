@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2678986674981310468}
   - component: {fileID: 2031579428187363877}
   - component: {fileID: 3359085117226692602}
+  - component: {fileID: 3289205417468496908}
   m_Layer: 2
   m_Name: Shooter
   m_TagString: PressMachine
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.5, y: -8, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.55, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 60551635
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d1b4091d7757d644b939636cf085f9b, type: 3}
-  m_Color: {r: 0.966619, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7a1a996169127404e9dcb47e15fc76c2, type: 3}
+  m_Color: {r: 0.966619, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,12 +122,28 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.02, y: 1.36}
+    oldSize: {x: 1.84, y: 2.39}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.7, y: 2.2}
   m_EdgeRadius: 0
+--- !u!114 &3289205417468496908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885860649913974175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66a6a9f767cd7b49ba0415517602c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NomalShooter: {fileID: 21300000, guid: 7a1a996169127404e9dcb47e15fc76c2, type: 3}
+  SpaceShooter: {fileID: 21300000, guid: edc1f553195b3514d903f1c996b49b88, type: 3}
+  RubberShooter: {fileID: 21300000, guid: 57121dda0e7b5b6408f3da8e1dbb60ba, type: 3}
+  IceShooter: {fileID: 21300000, guid: d67129ce76923694dbe6bd86b60aee9c, type: 3}

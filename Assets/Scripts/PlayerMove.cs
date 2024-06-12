@@ -26,6 +26,8 @@ public class PlayerMove : MonoBehaviour
     public static bool[] shooterPermission = new bool[(int)ShootType.Size];
     public static bool allowChangeType = true;
 
+    public static int Coins = 0;
+
     public static int Life = 3;
 
     float targetSpeed;
@@ -111,17 +113,9 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (this.transform.position.y < this.deathByFallPos){
-            this.transform.position = this.initPos;
-            this.rigidBody2d.velocity = Vector3.zero;
-            Life--;
-        }        
-
-        if(Life <= 0)
+        if (this.transform.position.y < this.deathByFallPos || Life <= 0)
         {
-            Life = 3;
-            transform.position = this.initPos;
-            rigidBody2d.velocity = Vector3.zero;
+            SceneManager.LoadScene(SceneChanger.nowScene);
         }
 
         //Debug.Log(HighSpeed);

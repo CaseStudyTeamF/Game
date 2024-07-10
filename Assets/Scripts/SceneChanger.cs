@@ -72,6 +72,12 @@ public class SceneChanger : MonoBehaviour
             case "Stage3-4":
                 nextScene = "Stage3-5";
                 break;
+            case "Stage3-5":
+                nextScene = "Stage3-6";
+                break;
+            case "Stage3-6":
+                nextScene = "Stage1-1";
+                break;
         }
 
         SceneManager.LoadScene(GoScene);

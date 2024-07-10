@@ -23,6 +23,7 @@ public class CoinScript : MonoBehaviour
         {
             if (!gotCoin)
             {
+                SoundPlayer.playSound(SE.Coin);
                 PlayerMove.Coins++;
                 gotCoin = true;
             }

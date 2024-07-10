@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
     bool jumpInput = false;
     float jumpPower = 0;
     
-    static bool HighSpeed = false;
+    public static bool HighSpeed { get; private set; } = false;
     static int invisTime = 0;
 
     bool rightClick = false;
@@ -67,6 +67,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] PhysicsMaterial2D bound;
     [SerializeField] PhysicsMaterial2D slip;
 
+    bool goalStart = false;
+    int goalTime = 60;
 
     // Start is called before the first frame update
     void Start()
@@ -79,17 +81,21 @@ public class PlayerMove : MonoBehaviour
 
         this.initPos = this.transform.position;
 
+        goalStart = false;
+        goalTime = 60;
+
         // パチンコの制限
-        shooterPermission[(int)ShootType.Normal] = true;
+        shooterPermission[(int)ShootType.Normal]       = true;
         shooterPermission[(int)ShootType.Anti_Gravity] = false;
-        shooterPermission[(int)ShootType.SuperBall] = false;
-        shooterPermission[(int)ShootType.Slip] = false;
+        shooterPermission[(int)ShootType.SuperBall]    = false;
+        shooterPermission[(int)ShootType.Slip]         = false;
         allowChangeType = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 移動処理
         targetSpeed = 0;
         if (Input.GetKey(KeyCode.A))
         {
@@ -99,7 +105,14 @@ public class PlayerMove : MonoBehaviour
         {
             targetSpeed = 6f;
         }
-        
+
+        // 自傷
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Life--;
+        }
+
+        // ヒットストップ？
         if(HitStop > 0)
         {
             HitStop -= Time.unscaledDeltaTime;
@@ -157,10 +170,21 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-
         UpdateStatus();
         HorizontalMove();
         Jump();
+
+        if (goalStart)
+        {
+            goalTime--;
+            rigidBody2d.velocity = Vector3.zero;
+            rigidBody2d.gravityScale = 0;
+            invisTime = 10;
+            
+            if (goalTime <= 0)
+                SceneManager.LoadScene("Result");
+
+        }
 
         coolDown = Mathf.Max(0, coolDown - 1);
     }
@@ -177,6 +201,7 @@ public class PlayerMove : MonoBehaviour
                 if(clickStartPos == Vector3.zero)
                 {
                     clickStartPos = Input.mousePosition;
+                    PlayerParticle.holdEffect = true;
                 }
                 else
                 {
@@ -292,6 +317,7 @@ public class PlayerMove : MonoBehaviour
         {
             powerArrow.SetActive(false);
             clickStartPos = Vector3.zero;
+            PlayerParticle.holdEffect = false;
         }
     }
 
@@ -305,17 +331,19 @@ public class PlayerMove : MonoBehaviour
         {
             totalImpulse += contact.normalImpulse;
         }
-        //Debug.Log(totalImpulse);
+        //Debug.Log(totalImpulse);2
 
         if(collision.gameObject.CompareTag("Door"))
         {
             if (HighSpeed)
             {
-                SceneManager.LoadScene("Result");
+                PlayerParticle.clearEffect(transform.position);
+                goalStart = true;
+                SoundPlayer.playSound(SE.Goal);
+                HighSpeed = false;
             }
         }
     }
-
 
     void UpdateStatus()
     {
@@ -376,6 +404,7 @@ public class PlayerMove : MonoBehaviour
                 if (raycastHit2D.distance < transform.localScale.y * 4.0f + 0.5f)
                 {
                     rigidBody2d.AddForce(new Vector3(0, jumpPower) * rigidBody2d.mass, ForceMode2D.Impulse);
+                    Debug.Log(raycastHit2D.distance);   
                 }
             }
             jumpInput = true;
@@ -407,7 +436,10 @@ public class PlayerMove : MonoBehaviour
     public static bool TakeDamage()
     {
         if (HighSpeed || Life >= 3)
+        {
+
             return false;
+        }
 
         if(invisTime <= 0)
         {

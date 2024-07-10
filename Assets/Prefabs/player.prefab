@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5112128460379408428}
   - component: {fileID: 280201393423413093}
   - component: {fileID: 128352441152275169}
+  - component: {fileID: 6771388511268189349}
   m_Layer: 2
   m_Name: player
   m_TagString: Player
@@ -201,6 +202,8 @@ MonoBehaviour:
   Powerful: {fileID: 21300000, guid: eca3ec5b0ca58d443bf132678b739e3d, type: 3}
   Normal: {fileID: 21300000, guid: 63ca90564c6025340851f0a4fdb6d7ca, type: 3}
   Baby: {fileID: 21300000, guid: 47fa74e98ef980845929df312594cbbc, type: 3}
+  initPos: {x: -14, y: -7, z: 0}
+  deathByFallPos: -30
   MinPower: 80
   MaxPower: 160
   mainCamera: {fileID: 0}
@@ -210,6 +213,24 @@ MonoBehaviour:
   friction: {fileID: 6200000, guid: 2d61ad9c9c802254eadbd546a1525617, type: 2}
   bound: {fileID: 6200000, guid: 283b9f3896f72b34eb80bedb9da8816e, type: 2}
   slip: {fileID: 6200000, guid: 78b4ab60a1db0cf42a2462d66bb1ef5f, type: 2}
+--- !u!114 &6771388511268189349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712988121258956252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92fc3380f6490042b8e741bf4e1087b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 1893234410683437214, guid: 3c79c06183e03c44781e3f56a384267e, type: 3}
+  space: {fileID: 1395123851541051936, guid: 958dbe90ed8c8b84bbfb9180ba6f9182, type: 3}
+  ice: {fileID: 2589427916975309445, guid: 68fde0fde19a6ed4f91103706c7c879f, type: 3}
+  superball: {fileID: 327956698142781183, guid: 2c6f21266b054a64e9e9668b49687854, type: 3}
+  hold: {fileID: 8934161973614468802, guid: b1f668313631a2a44bc4e292879542a6, type: 3}
+  hit: {fileID: 3735032777611235706, guid: b18fd382c6f8dcd4f9f193cd3ed7eef3, type: 3}
 --- !u!1 &7230998537514457202
 GameObject:
   m_ObjectHideFlags: 0

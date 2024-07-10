@@ -6,6 +6,8 @@ public enum SE
 {
     Shot,
     Hit,
+    Coin,
+    Goal
 }
 
 public class SoundPlayer : MonoBehaviour
@@ -17,6 +19,7 @@ public class SoundPlayer : MonoBehaviour
 
     static AudioSource pAudioSource;
     static AudioClip[] clips;
+
     // Start is called before the first frame update
     void Start()
     {

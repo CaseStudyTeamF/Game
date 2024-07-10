@@ -80,6 +80,7 @@ public class EnemyFly : MonoBehaviour
 
             if (!PlayerMove.TakeDamage())
             {
+                PlayerParticle.hitEffect(transform.position);
                 SoundPlayer.playSound(SE.Hit);
                 Destroy(gameObject);
             }

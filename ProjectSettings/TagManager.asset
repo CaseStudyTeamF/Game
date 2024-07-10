@@ -9,6 +9,7 @@ TagManager:
   - Door
   - Carrot
   - SpaceShooter
+  - Coin
   layers:
   - Default
   - TransparentFX

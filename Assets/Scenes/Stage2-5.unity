@@ -1630,43 +1630,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (3)
+      value: IceRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: forceType
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.88
+      value: 26.3
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.54
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.034629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1678,7 +1686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1875,80 +1883,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3572804508137425395, guid: 3762ccff2823f3c4a9095f0b96947e23, type: 3}
   m_PrefabInstance: {fileID: 677248920}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &687986450
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 973012219}
-    m_Modifications:
-    - target: {fileID: 148124074455140650, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_Name
-      value: IceRing (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: forceType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 17.205
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.335315
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 10.034629
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
---- !u!4 &687986451 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
-  m_PrefabInstance: {fileID: 687986450}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &690666889
 PrefabInstance:
@@ -13485,12 +13419,11 @@ Transform:
   m_GameObject: {fileID: 973012218}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.135, y: -2.1146846, z: -10.034629}
+  m_LocalPosition: {x: 17.135, y: -2.1146846, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 698090851}
-  - {fileID: 687986451}
   - {fileID: 617840142}
   - {fileID: 1091364362}
   - {fileID: 1857389474}
@@ -13753,11 +13686,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (2)
+      value: NeutralRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3aa460e1a2edbb14cb8ddb935e7b931e, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: forceType
@@ -13765,15 +13702,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 61.3
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.6
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.034629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16033,11 +15970,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (4)
+      value: CosmosRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7aa4c9f5eefd547438d32a5376e4337e, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: forceType
@@ -16045,15 +15986,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 87.24
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.48
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.034629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16169,27 +16110,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing
+      value: SpaceRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7aa4c9f5eefd547438d32a5376e4337e, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: forceType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.615
+      value: -21
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.524685
+      value: 7.75
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.034629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalRotation.w

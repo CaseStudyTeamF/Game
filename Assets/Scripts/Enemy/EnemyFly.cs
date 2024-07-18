@@ -31,6 +31,12 @@ public class EnemyFly : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // プレイヤーの発射時に抵抗を減らす処理
+        if (PlayerMove.HighSpeed)
+            rigidBody2d.mass = 0.1f;
+        else
+            rigidBody2d.mass = 1;
+
         // 生成間隔経過時間を計測
         this.timeSinceLastSpawn += Time.deltaTime;
 

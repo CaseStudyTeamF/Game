@@ -5,6 +5,11 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
+internal enum Shot
+{
+    
+}
+
 public class PlayerParticle : MonoBehaviour
 {
     bool highSpeed = false;
@@ -18,7 +23,7 @@ public class PlayerParticle : MonoBehaviour
 
     internal static bool holdEffect = false;
 
-    static GameObject hitObj, clearObj;
+    static GameObject hitObj, clearObj, icy, bouncy, neutral, emitter;
 
     //int frame = 0;
     // Start is called before the first frame update
@@ -26,12 +31,16 @@ public class PlayerParticle : MonoBehaviour
     {
         hitObj = hit;
         clearObj = space;
+        icy = ice;
+        bouncy = superball;
+        neutral = normal;
+        emitter = normal;
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if(PlayerMove.HighSpeed)
+        if (PlayerMove.HighSpeed)
         {
             if (count % 5 == 0)
             {
@@ -60,7 +69,7 @@ public class PlayerParticle : MonoBehaviour
 
         if (Input.GetMouseButton(0) && holdEffect)
         {
-            if(!clicked)
+            if (!clicked)
             {
                 holdPos = Input.mousePosition;
                 holdPos = Camera.main.ScreenToWorldPoint(holdPos);
@@ -70,7 +79,8 @@ public class PlayerParticle : MonoBehaviour
             Instantiate(particle, holdPos, transform.rotation);
 
             clicked = true;
-        } else
+        }
+        else
         {
             clicked = false;
         }
@@ -87,7 +97,6 @@ public class PlayerParticle : MonoBehaviour
         //frame++;
 
     }
-
 
     internal static void hitEffect(Vector3 pos, bool constantAngle = false, bool constantSpeed = false)
     {
@@ -117,6 +126,35 @@ public class PlayerParticle : MonoBehaviour
             Particle p = effect.GetComponent<Particle>();
             p.angle = a;
             p.speed = 0.1f;
+
+            a += 30;
+        }
+    }
+    internal static void circleEffect(Vector3 pos, ShootType type)
+    {
+        float a = 0;
+        while (a < 360)
+        {
+            switch (type)
+            {
+                case ShootType.Anti_Gravity:
+                    emitter = clearObj;
+                    break;
+                case ShootType.Slip:
+                    emitter = icy;
+                    break;
+                case ShootType.SuperBall:
+                    emitter = bouncy;
+                    break;
+                default:
+                    emitter = neutral;
+                    break;
+            }
+            GameObject effect = Instantiate(emitter, pos, Quaternion.identity);
+
+            Particle p = effect.GetComponent<Particle>();
+            p.angle = a;
+            p.speed = 0.2f;
 
             a += 30;
         }

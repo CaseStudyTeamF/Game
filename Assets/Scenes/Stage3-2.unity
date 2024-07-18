@@ -205,7 +205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (2)
+      value: FrozenRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
@@ -17604,11 +17604,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (5)
+      value: NormalRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3aa460e1a2edbb14cb8ddb935e7b931e, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: unlimit
@@ -17620,11 +17624,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 73.16
+      value: 65.59
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.63
+      value: 3.65
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18163,11 +18167,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (3)
+      value: IceRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: unlimit
@@ -18179,11 +18183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.54
+      value: 3.15
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.01
+      value: 3.24
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18308,11 +18312,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing
+      value: SpaceRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7aa4c9f5eefd547438d32a5376e4337e, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: forceType
@@ -18320,11 +18328,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.89
+      value: -43.07
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.67
+      value: -5.64
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18377,11 +18385,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (1)
+      value: RubberRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0302a71431a6f0a4d94e3b9801b0b2db, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: unlimit
@@ -18392,12 +18404,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -33.71
+      value: -36.31
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.18
+      value: 4.35
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19193,11 +19213,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (6)
+      value: IcyRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: unlimit
@@ -19208,12 +19228,20 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 153.21
+      value: 150.15
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.57
+      value: 4.35
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19417,11 +19445,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 527356116767989859, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Name
-      value: IceRing (4)
+      value: GalaxyRing
       objectReference: {fileID: 0}
     - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7aa4c9f5eefd547438d32a5376e4337e, type: 3}
+    - target: {fileID: 3184578161464713194, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4296522637645210946, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: unlimit
@@ -19433,11 +19465,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.12
+      value: 33.18
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.8
+      value: -4.46
       objectReference: {fileID: 0}
     - target: {fileID: 6820901689444775618, guid: 9c717431cd099234aaf9b973b806ab8c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19565,11 +19597,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3245318160798165166, guid: 2d4ec2c93bfdb13499f83f248bd90a07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.4
+      value: -13.07
       objectReference: {fileID: 0}
     - target: {fileID: 3245318160798165166, guid: 2d4ec2c93bfdb13499f83f248bd90a07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.57
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 3245318160798165166, guid: 2d4ec2c93bfdb13499f83f248bd90a07, type: 3}
       propertyPath: m_LocalPosition.z

@@ -23,7 +23,11 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // プレイヤー発射時に押し返さないようにする
+        if(PlayerMove.HighSpeed)
+            rigidBody2d.mass = 0.1f;
+        else
+            rigidBody2d.mass = 1;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -58,7 +62,7 @@ public class EnemyMove : MonoBehaviour
         float speed = this.enemyMoveSpeed - Math.Abs(this.rigidBody2d.velocity.x);
         float control = this.isTouchGround ? 1.0f : 0.001f;
         Vector2 force = new Vector2(this.direction.x * speed * control, 0);
-        this.rigidBody2d.AddForce(force);
+        this.rigidBody2d.AddForce(force * rigidBody2d.mass);
 
     }
 

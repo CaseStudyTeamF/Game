@@ -182,7 +182,12 @@ public class PlayerMove : MonoBehaviour
             invisTime = 10;
             
             if (goalTime <= 0)
-                SceneManager.LoadScene("Result");
+            {
+                if (SceneChanger.nowScene == "Stage3-6")
+                    SceneManager.LoadScene("Ending");
+                else
+                    SceneManager.LoadScene("Result");
+            }
 
         }
 
